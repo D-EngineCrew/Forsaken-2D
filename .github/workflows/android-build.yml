@@ -1,22 +1,19 @@
 name: FORSAKEN 2D - Android Native APK
-
 on:
-workflow_dispatch:
-push:
-branches:
-- main
+  push:
+  workflow_dispatch:
 
 jobs:
-android-build:
-name: Build FORSAKEN 2D Native APK
-runs-on: ubuntu-latest
-
-steps:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      
   - name: Checkout source
     uses: actions/checkout@v4
 
   - name: Set up Node.js 24
-    uses: actions/setup-node@v4
+    uses: actions/setup-node@v6
     with:
       node-version: '24'
 
@@ -42,7 +39,7 @@ steps:
     run: gradle --no-daemon assembleDebug
 
   - name: Upload APK
-    uses: actions/upload-artifact@v4
+    uses: actions/upload-artifact@v7
     with:
       name: FORSAKEN-2D-v0.7.0-Android-APK
       path: android-native/app/build/outputs/apk/debug/app-debug.apk
